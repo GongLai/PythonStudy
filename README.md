@@ -459,24 +459,24 @@ $ sudo docker load -i 文件路径/备份文件
 ##### 1. 安装虚拟环境包
 
 ```python
-sudo pip3 install virtualenv
+$ sudo pip3 install virtualenv
 ```
 
 ##### 2. 安装虚拟环境扩展包
 
 ```python
-sudo pip3 install virtualenvwrapper  # 目的:使用更加简单的命令来管理虚拟环境
+$ sudo pip3 install virtualenvwrapper  # 目的:使用更加简单的命令来管理虚拟环境
 ```
 
 
 #### 二、常用虚拟环境命令
 
 ```python
-mkvirtualenv -p python3 虚拟环境名称  # 创建虚拟环境
-workon 两次tab键  # 查看所有虚拟环境
-workon 虚拟环境名称  # 进入虚拟环境
-rmvirtualenv 虚拟环境名称  # 删除虚拟环境
-deactivate  # 退出虚拟环境
+$ mkvirtualenv -p python3 虚拟环境名称  # 创建虚拟环境
+$ workon 两次tab键  # 查看所有虚拟环境
+$ workon 虚拟环境名称  # 进入虚拟环境
+$ rmvirtualenv 虚拟环境名称  # 删除虚拟环境
+$ deactivate  # 退出虚拟环境
 ```
 
 
