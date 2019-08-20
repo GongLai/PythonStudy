@@ -338,3 +338,150 @@ Redis淘汰策略的配置：
 - **注意：不同级缓存之间的缓存时间有差异，3级的缓存时间最长，保证尽可能不去访问磁盘数据库，提升速度。**
 
 
+## linux常用命令汇总
+
+### Docker 命令
+
+#### 镜像操作
+
+##### 1.启动与停止
+
+```python
+# 启动docker
+$ sudo service docker start
+# 重启docker
+$ sudo service docker restart
+# 停止docker
+$ sudo service docker stop
+```
+
+##### 2.查看镜像列表
+
+```python
+$ sudo docker image ls
+
+# 注释：
+* REPOSITORY：镜像所在的仓库名称 
+* TAG：镜像标签 
+* IMAGEID：镜像ID 
+* CREATED：镜像的创建日期(不是获取该镜像的日期) 
+* SIZE：镜像大小
+```
+
+##### 3.创建镜像
+
+```python
+# 从官方拉取镜像
+$ sudo docker image pull 镜像名称 或者 sudo docker image pull library/镜像名称
+$ sudo docker image pull ubuntu 或者 sudo docker image pull library/ubuntu
+$ sudo docker image pull ubuntu:16.04 或者 sudo docker image pull library/ubuntu:16.04
+
+# 拉取个人镜像
+$ sudo docker image pull 仓库名称/镜像名称
+$ sudo docker image pull itcast/fastdfs
+
+# 解压本地镜像
+$ sudo docker load -i 文件路径/镜像名称(文件尾缀也要带上)
+$ sudo docker load -i 文件路径/fastdfs_docker.tar
+```
+
+##### 4.删除镜像
+
+```python
+$ sudo docker image rm 镜像名或镜像ID
+```
+
+#### Docker容器操作
+
+##### 1.查看容器
+
+```python
+# 查看正在运行的容器
+$ sudo docker container ls
+# 查看所有的容器
+$ sudo docker container ls --all
+```
+
+##### 2.创建容器
+
+```python
+$ sudo docker run [option] 镜像名 [向启动容器中传入的命令]
+
+# 常用可选参数说明：
+* -i 表示以《交互模式》运行容器。
+* -t 表示容器启动后会进入其命令行。加入这两个参数后，容器创建就能登录进去。即分配一个伪终端。
+* --name 为创建的容器命名。
+* -v 表示目录映射关系，即宿主机目录:容器中目录。注意:最好做目录映射，在宿主机上做修改，然后共享到容器上。 
+* -d 会创建一个守护式容器在后台运行(这样创建容器后不会自动登录容器)。
+* -e 在启动容器时传递环境变量及其值
+* -p 表示端口映射，即宿主机端口:容器中端口。
+* --network=host 表示将主机的网络环境映射到容器中，使容器的网络与主机相同。
+
+# 示例
+$ sudo docker run -dit --name tracker --network=host -v /var/fdfs/tracker:/var/fdfs delron/fastdfs tracker
+$ sudo docker run -dti --name storage --network=host -e TRACKER_SERVER=192.168.103.210:22122 -v /var/fdfs/storage:/var/fdfs delron/fastdfs storage
+```
+
+##### 3.启动和停止容器
+
+```python
+# 启动容器
+$ sudo docker container start 容器名或容器id
+# 停止容器
+$ sudo docker container stop 容器名或容器id
+# kill掉容器
+$ sudo docker container kill 容器名或容器id
+```
+
+##### 4.删除容器
+
+```python
+$ sudo docker container rm 容器名或容器id  
+# 正在运行的容器无法直接删除，需要先停止容器。
+```
+
+##### 5.容器制作成镜像
+
+```python
+# 将容器制作成镜像
+$ sudo docker commit 容器名 镜像名
+# 镜像打包备份
+$ sudo docker save -o 保存的文件名 镜像名
+# 镜像解压
+$ sudo docker load -i 文件路径/备份文件
+```
+
+
+### 虚拟环境
+
+#### 一、创建虚拟环境
+
+##### 1. 安装虚拟环境包
+
+```python
+sudo pip3 install virtualenv
+```
+
+##### 2. 安装虚拟环境扩展包
+
+```python
+sudo pip3 install virtualenvwrapper  # 目的:使用更加简单的命令来管理虚拟环境
+```
+
+
+#### 二、常用虚拟环境命令
+
+```python
+mkvirtualenv -p python3 虚拟环境名称  # 创建虚拟环境
+workon 两次tab键  # 查看所有虚拟环境
+workon 虚拟环境名称  # 进入虚拟环境
+rmvirtualenv 虚拟环境名称  # 删除虚拟环境
+deactivate  # 退出虚拟环境
+```
+
+
+### 其他常用命令
+
+```shell
+$ pip3 --version  # 判断pip3是依赖哪个python版本的
+```
